@@ -3,7 +3,7 @@
 #include <string.h>
 #include "matrix.h"
 
-void print(Row* r, char* vector_name)
+void print(Row* r, char* vector_name);
 {
     int i;
     if(!vector_name)
@@ -15,19 +15,17 @@ void print(Row* r, char* vector_name)
     }
     printf("}\n");
 }
-void _insert(void* array,void* element, size_t index, int op)
+void _insert(Row* array,int* element, size_t index)
 {
-    size_t sD;
-    switch(op){
-        case 1:
-            sD = sizeof(int *); 
-            break;
-        case 2:
-            sD = sizeof(int);
-            break;
+    Row* a = array;
+    int e = element[0];
+    if(index <= a->len && index >= 0)
+    {
+        a->len++;
+        a->address = realloc(a->address, sizeof(int*) * a->len);
+        a->address =  (a->len - 1 - index > 0 ? memcpy(a->address[index + 1], a->address[index], (a->len - 1 - index)*sizeof(int*) : a->address);
+        a->address[index] = e;
     }
-    
-    
 
 }
 Row* _initrow(){
@@ -79,7 +77,7 @@ Row* task(Matrix* matrix){
     for(i = 0; i < matrix->len; i++)
     {
         f[0] = counteq(matrix->address[i]);
-        _insert(ans, f,ans->len, 2);
+        _insert(ans, f,ans->len);
     }
     free(f);
     return ans;
@@ -97,14 +95,14 @@ Matrix* enter(){
         m[i] = calloc(sizeof(Row));
         scanf("%d", &((m[i])->len));
         m[i]->address = calloc(sizeof(int), m[i]->len);
-        printf("Enter row: ")
+        printf("Enter row: ");
         for(j = 0; j < m[i]->len)
-            scanf("%d", &(m[i]->address[j]));
+            scanf("%d",&(m[i]->address[j]));
 
     }
     return m;
 }
-void rem(void* a, int op){
+void remove(void* a, int op){
     switch(op)
     {
         case 1:
@@ -112,7 +110,7 @@ void rem(void* a, int op){
             int len = ((Matrix*)a)->len,i;
             for(i = 0; i < len; i++)
             {
-                rem(&ptr[i],2);
+                remove(&ptr[i],2);
             }
             break;
         case 2:
