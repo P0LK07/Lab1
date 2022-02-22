@@ -4,7 +4,7 @@ CFLAGS =-c -Wall
 all: launch
 
 launch: main.o matrix.o
-	$(CC) $(CFLAGS) main.o matrix.o -o lab1
+	$(CC) main.o matrix.o -o lab1
 
 main.o: main.c
 	$(CC) $(CFLAGS) main.c -o main.o 

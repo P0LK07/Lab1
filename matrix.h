@@ -11,7 +11,7 @@ typedef struct Matrix{
     int len;
 } Matrix;
 
-void print(Row* r, char*);
+void print(Row* r);
 Row* task(Matrix* matrix);
 Matrix* enter();
 void rem(void* a, int op);
